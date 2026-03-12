@@ -1,0 +1,6 @@
+services:
+- cloudkms.googleapis.com
+- compute.googleapis.com
+- dlp.googleapis.com
+- networksecurity.googleapis.com
+- secretmanager.googleapis.com

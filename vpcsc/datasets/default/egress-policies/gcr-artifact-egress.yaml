@@ -1,0 +1,23 @@
+# Egress: Container image pulls from Artifact Registry
+#
+# Compliance:
+#   SOC 2: CC6.1 Integrity controls — controlled egress for software artifact retrieval
+#   FedRAMP: CM-14 Signed Components — control supply chain for container images
+#   SOX: ITGC: Change management — container deployments from controlled registries only
+#
+# ARCHITECT NOTE: For production, mirror all images into your own AR
+# and consider removing this rule.
+#
+# ARCHITECT TODO:
+# - [ ] Replace PROJECT_NUMBER with GKE project number
+
+from:
+  identities:
+  - serviceAccount:service-PROJECT_NUMBER@compute-system.iam.gserviceaccount.com
+to:
+  operations:
+  - method_selectors:
+    - '*'
+    service_name: artifactregistry.googleapis.com
+  resources:
+  - '*'

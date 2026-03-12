@@ -1,0 +1,23 @@
+# Egress: Centralized logging to sinks outside perimeter
+#
+# Compliance:
+#   SOC 2: CC7.2 System monitoring — ensure monitoring data reaches centralized analysis
+#   FedRAMP: AU-4 Audit Log Storage Capacity, AU-6 Audit Record Review — centralized log collection
+#   SOX: ITGC: Audit trail integrity — log delivery to tamper-resistant centralized storage
+#
+# Without this, log delivery to centralized sinks fails silently.
+
+from:
+  identities:
+  - '*'
+to:
+  operations:
+  - method_selectors:
+    - google.logging.v2.LoggingServiceV2.WriteLogEntries
+    - google.logging.v2.LoggingServiceV2.CreateLogEntry
+    service_name: logging.googleapis.com
+  - method_selectors:
+    - google.cloud.bigquery.v2.TableDataService.InsertAll
+    service_name: bigquery.googleapis.com
+  resources:
+  - '*'

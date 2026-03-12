@@ -1,0 +1,22 @@
+# Access level: FAST automation service accounts
+#
+# Compliance:
+#   SOC 2: CC6.1 System access controls — logical access restricted to authorized service accounts
+#   FedRAMP: AC-3 Access Enforcement — enforce approved authorizations for IaC service accounts
+#   SOX: ITGC: Change management — IaC automation identities are tracked and auditable
+#
+# CRITICAL: Without this, terraform plan/apply fails for perimeter resources.
+
+description: FAST automation service accounts for Terraform CI/CD.
+conditions:
+- members:
+  - $iam_principals:service_accounts/iac-0/iac-org-rw
+  - $iam_principals:service_accounts/iac-0/iac-vpcsc-rw
+  - $iam_principals:service_accounts/iac-0/iac-networking-rw
+  - $iam_principals:service_accounts/iac-0/iac-security-rw
+  - $iam_principals:service_accounts/iac-0/iac-pf-rw
+  - $iam_principals:service_accounts/iac-0/terraform-org-sa
+  - $iam_principals:service_accounts/iac-0/terraform-network-sa
+  - $iam_principals:service_accounts/iac-0/terraform-security-sa
+  - $iam_principals:service_accounts/iac-0/cicd-deploy-sa
+  - $iam_principals:service_accounts/iac-0/security-scanner-sa

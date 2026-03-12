@@ -1,0 +1,18 @@
+# Access level: Corporate network ranges
+#
+# Compliance:
+#   SOC 2: CC6.1 Logical access security — restrict access to authorized network locations
+#   FedRAMP: AC-3(9) Controlled access points — route remote access through managed access points
+#   SOX: ITGC: Logical access — restrict access to financial systems from corporate networks only
+#
+# ARCHITECT TODO:
+# - [ ] Replace placeholder CIDRs with actual corporate egress IPs
+# - [ ] Add VPN gateway IPs if remote workers use VPN
+
+description: Access from corporate network. Replace placeholder IPs with actual corporate egress IP ranges.
+conditions:
+- ip_subnetworks:
+  - 203.0.113.0/24
+  - 198.51.100.0/24
+  regions:
+  - US

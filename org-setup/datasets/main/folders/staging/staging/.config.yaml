@@ -1,0 +1,3 @@
+name: Staging
+tag_bindings:
+  environment: $tag_values:environment/staging

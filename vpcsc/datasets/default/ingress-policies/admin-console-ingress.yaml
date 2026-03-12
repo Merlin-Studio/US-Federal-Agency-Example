@@ -1,0 +1,41 @@
+# Ingress: Admin console access from corporate network
+#
+# Compliance:
+#   SOC 2: CC6.1 Remote access controls — restrict remote administrative access
+#   FedRAMP: AC-17 Remote Access — control and monitor all remote admin access methods
+#   SOX: ITGC: Logical access — admin access from corporate network with audit trail
+#
+# ARCHITECT TODO: Narrow service_name to only services admins actually need
+
+from:
+  identities:
+  - $iam_principals:gcp-org-admin
+  - $iam_principals:gcp-network-admin
+  - $iam_principals:gcp-security-admin
+  sources:
+  - access_level: corp-network
+to:
+  operations:
+  - method_selectors:
+    - '*'
+    service_name: compute.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: container.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: storage.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: cloudkms.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: secretmanager.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: logging.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: monitoring.googleapis.com
+  resources:
+  - '*'

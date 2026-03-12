@@ -1,0 +1,4 @@
+rules:
+- allow:
+    values:
+    - in:us-locations

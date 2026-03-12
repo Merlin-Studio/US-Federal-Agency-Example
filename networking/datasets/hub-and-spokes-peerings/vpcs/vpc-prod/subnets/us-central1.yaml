@@ -1,0 +1,10 @@
+sb-prod-us-central1:
+  ip_cidr_range: 10.1.0.0/20
+  private_ip_google_access: true
+  secondary_ip_ranges:
+    pods: 10.4.0.0/14
+    services: 10.0.32.0/20
+  flow_logs_config:
+    aggregation_interval: INTERVAL_5_MIN
+    flow_sampling: 0.5
+    metadata: INCLUDE_ALL_METADATA

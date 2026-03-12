@@ -1,0 +1,15 @@
+# Access level: Admin group identities
+#
+# Compliance:
+#   SOC 2: CC6.1, CC6.3 Role-based access — restrict access based on role requirements
+#   FedRAMP: AC-2 Account Management, AC-5 Separation of Duties — restrict admin access by identity
+#   SOX: ITGC: Separation of Duties — distinct admin roles prevent unauthorized changes
+#
+# ARCHITECT TODO:
+# - [ ] Verify group emails match actual Workspace groups
+
+description: Administrative identity-based access for org and security admins.
+conditions:
+- members:
+  - $iam_principals:gcp-org-admin
+  - $iam_principals:gcp-security-admin

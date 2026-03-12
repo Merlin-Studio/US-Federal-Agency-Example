@@ -1,0 +1,20 @@
+parent: $folder_ids:sandbox/sandbox
+services:
+- clouderrorreporting.googleapis.com
+- cloudtrace.googleapis.com
+labels:
+  managed-by: architex
+  workload: observability
+  environment: sbx
+budget:
+  amount: 100000
+  currency_code: USD
+  thresholds:
+  - percent: 50
+    basis: CURRENT_SPEND
+  - percent: 80
+    basis: CURRENT_SPEND
+  - percent: 100
+    basis: CURRENT_SPEND
+  - percent: 100
+    basis: FORECASTED_SPEND

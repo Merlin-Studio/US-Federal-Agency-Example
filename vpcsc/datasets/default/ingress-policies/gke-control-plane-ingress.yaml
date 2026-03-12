@@ -1,0 +1,36 @@
+# Ingress: GKE control plane communication
+#
+# Compliance:
+#   SOC 2: CC6.1 Network access controls — controlled exception for managed services
+#   FedRAMP: SC-7 Boundary Protection — managed service exception for GKE control plane
+#   SOX: ITGC: Network segmentation — documented exception for managed service dependencies
+#
+# GKE control plane runs outside the perimeter in Google-managed infra.
+# Without this rule, kubectl and GKE API calls fail.
+#
+# ARCHITECT TODO:
+# - [ ] Replace PROJECT_NUMBER with actual GKE project number
+#       Run: gcloud projects describe PROJECT_ID --format='value(projectNumber)'
+# - [ ] Verify all GKE environment projects are listed
+
+from:
+  identities:
+  - serviceAccount:service-PROJECT_NUMBER@container-engine-robot.iam.gserviceaccount.com
+  sources:
+  - access_level: '*'
+to:
+  operations:
+  - method_selectors:
+    - '*'
+    service_name: container.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: compute.googleapis.com
+  - method_selectors:
+    - '*'
+    service_name: artifactregistry.googleapis.com
+  resources:
+  - $project_ids:acme-lza1-gke-dev-0
+  - $project_ids:acme-lza1-gke-stg-0
+  - $project_ids:acme-lza1-gke-prd-0
+  - $project_ids:acme-lza1-gke-sbx-0

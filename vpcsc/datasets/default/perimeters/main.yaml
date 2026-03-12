@@ -1,0 +1,74 @@
+# Main VPC-SC perimeter protecting all sensitive workload projects
+#
+# Compliance:
+#   SOC 2: CC6.1 Logical access security — restrict access to information assets
+#   FedRAMP: SC-7(5) Boundary Protection — deny by default, allow by exception
+#   SOX: ITGC: Network segmentation — prevent unauthorized access to financial reporting systems
+#
+# DESIGN: Single perimeter in dry-run mode. All projects included.
+# Restricted services derived from project factory API enablement.
+#
+# ARCHITECT TODO:
+# - [ ] Review restricted_services list against actual API usage
+# - [ ] Verify all environment project IDs are included below
+# - [ ] Monitor dry-run logs 2-4 weeks before enforcing
+# - [ ] To enforce: move 'spec' contents to 'status', remove use_explicit_dry_run_spec
+
+description: Primary service perimeter protecting workload and data projects. Started in dry-run mode for safe validation.
+use_explicit_dry_run_spec: true
+spec:
+  access_levels:
+  - corp-network
+  - fast-automation
+  - admin-identity
+  resources:
+  - $project_ids:acme-lza1-sec-core-0
+  - $project_ids:acme-lza1-net-core-0
+  - $project_ids:acme-lza1-gke-dev-0
+  - $project_ids:acme-lza1-gke-stg-0
+  - $project_ids:acme-lza1-gke-prd-0
+  - $project_ids:acme-lza1-gke-sbx-0
+  - $project_ids:acme-lza1-dp-dev-0
+  - $project_ids:acme-lza1-dp-stg-0
+  - $project_ids:acme-lza1-dp-prd-0
+  - $project_ids:acme-lza1-dp-sbx-0
+  - $project_ids:acme-lza1-app-dev-0
+  - $project_ids:acme-lza1-app-stg-0
+  - $project_ids:acme-lza1-app-prd-0
+  - $project_ids:acme-lza1-app-sbx-0
+  - $project_ids:acme-lza1-ops-dev-0
+  - $project_ids:acme-lza1-ops-stg-0
+  - $project_ids:acme-lza1-ops-prd-0
+  - $project_ids:acme-lza1-ops-sbx-0
+  restricted_services:
+  - artifactregistry.googleapis.com
+  - bigquery.googleapis.com
+  - binaryauthorization.googleapis.com
+  - cloudkms.googleapis.com
+  - cloudresourcemanager.googleapis.com
+  - cloudtrace.googleapis.com
+  - compute.googleapis.com
+  - container.googleapis.com
+  - containeranalysis.googleapis.com
+  - dataflow.googleapis.com
+  - iam.googleapis.com
+  - iamcredentials.googleapis.com
+  - logging.googleapis.com
+  - monitoring.googleapis.com
+  - pubsub.googleapis.com
+  - run.googleapis.com
+  - secretmanager.googleapis.com
+  - sqladmin.googleapis.com
+  - storage.googleapis.com
+  - sts.googleapis.com
+  ingress_policies:
+  - fast-automation-ingress
+  - admin-console-ingress
+  - gke-control-plane-ingress
+  egress_policies:
+  - gcr-artifact-egress
+  - logging-egress
+  vpc_accessible_services:
+    allowed_services:
+    - RESTRICTED-SERVICES
+    enable_restriction: true

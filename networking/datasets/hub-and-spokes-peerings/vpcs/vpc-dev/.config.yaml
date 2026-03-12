@@ -1,0 +1,11 @@
+project_id: $project_ids:net-core-0
+delete_default_routes_on_create: true
+nat_config:
+  nat-vpc-dev-us-central1:
+    region: us-central1
+  nat-vpc-dev-us-west2:
+    region: us-west2
+routes:
+  default-route:
+    dest_range: 0.0.0.0/0
+    next_hop: default-internet-gateway
